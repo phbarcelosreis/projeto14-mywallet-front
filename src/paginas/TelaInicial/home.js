@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import Logout from "../../assets/images/logout.png"
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../app";
+
 
 const App = styled.div`
     box-sizing: border-box;
@@ -82,6 +85,8 @@ const List = styled.div`
 
 function Home() {
 
+    const { token } = useContext(UserContext);
+
     const user = "Pedro";
     const teste = ["oi"];
 
@@ -92,49 +97,51 @@ function Home() {
         navegar("/")
     }
 
-    return (
+    if(token !== null){
+        return (
 
-        <App>
-            <div className="header">
-                <h1>Olá, {user}</h1>
-                <img onClick={Testes} className="logout" src={Logout} alt="LogoutIcon" />
-            </div>
-            <div className="payScreen">
-                <div>
-                    {teste.length === 0 ?
-                        <h1>Não há registros de entrada ou saída</h1> :
-                        teste.map(() =>
-                            <List>
-                                <div className="entry">
-                                    <div className="dateName">
-                                        <h1>
-                                            23/10
-                                        </h1>
-                                        <h1>
-                                            Almoçar
+            <App>
+                <div className="header">
+                    <h1>Olá, {user}</h1>
+                    <img onClick={Testes} className="logout" src={Logout} alt="LogoutIcon" />
+                </div>
+                <div className="payScreen">
+                    <div>
+                        {teste.length === 0 ?
+                            <h1>Não há registros de entrada ou saída</h1> :
+                            teste.map(() =>
+                                <List>
+                                    <div className="entry">
+                                        <div className="dateName">
+                                            <h1>
+                                                23/10
+                                            </h1>
+                                            <h1>
+                                                Almoçar
+                                            </h1>
+                                        </div>
+                                        <h1 className="value">
+                                            23,30
                                         </h1>
                                     </div>
-                                    <h1 className="value">
-                                        23,30
-                                    </h1>
-                                </div>
-                                <div className="balance">
-                                    <h1>
-                                        SALDO
-                                    </h1>
-                                    <h1>
-                                        {21 + 23}
-                                    </h1>
-                                </div>
-                            </List>
-                        )
-                    }
+                                    <div className="balance">
+                                        <h1>
+                                            SALDO
+                                        </h1>
+                                        <h1>
+                                            {21 + 23}
+                                        </h1>
+                                    </div>
+                                </List>
+                            )
+                        }
+                    </div>
                 </div>
-            </div>
-
-        </App>
-
-    )
+    
+            </App>
+    
+        )
+    }
 
 
 

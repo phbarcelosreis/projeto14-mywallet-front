@@ -61,29 +61,26 @@ function Cadastro() {
     const [password, setPassword] = useState();
     const [confirm, setConfirm] = useState();  
 
-    const Api = "localhost/5000/users"
+    const Api = "http://localhost:5000/register"
     const navegar = useNavigate();
 
     function Cadastrando(){
 
         if(password === confirm){
-            const user = {
-                email: email,
+            const teste = {
                 name: user,
+                email: email,
                 password: password
             }
     
-            const promessa = axios.post(Api, user);
+            const promessa = axios.post(Api, teste);
             promessa.then(() => navegar("/"));
-            promessa.catch((props) => alert(props.response.data.message));
+            promessa.catch((props) => alert(props));
         } else{
             alert("As senhas não coincidem! Por favor insira novamente!");
         }
 
-
     }
-
-
 
 
     function Cadastrar(props){
