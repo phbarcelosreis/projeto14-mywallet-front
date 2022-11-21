@@ -85,7 +85,6 @@ const List = styled.div`
 `
 
 const Buttons = styled.div`
-    position: absolute;
     display: flex;
     justify-content: space-between;
     cursor: pointer;
@@ -153,6 +152,16 @@ function Home() {
         navegar("/")
     }
 
+    function Entradas(e){
+        e.preventDefault();
+        navegar("/entrada")
+    }
+
+    function Saidas(e){
+        e.preventDefault();
+        navegar("/saida")
+    }
+
     if(token !== null){
         return (
 
@@ -195,11 +204,11 @@ function Home() {
                         }
                     </div>
                     <Buttons>
-                        <div onClick={navegar("/entrada")} className="newEntry">
+                        <div onClick={Entradas} className="newEntry">
                             <img src={Entry} alt="LogoEntry"/>
                             <div className="in"><h1>Nova entrada</h1></div>
                         </div>
-                        <div onClick={navegar("/saida")} className="newOut">
+                        <div onClick={Saidas} className="newOut">
                             <img src={Out} alt="LogoOut"/>
                             <div className="out"><h1>Nova saída</h1></div>
                         </div>
