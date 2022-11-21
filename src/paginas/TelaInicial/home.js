@@ -3,6 +3,8 @@ import Logout from "../../assets/images/logout.png"
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../app";
+import Entry from "../../assets/images/entry.png"
+import Out from "../../assets/images/out.png"
 
 
 const App = styled.div`
@@ -82,13 +84,67 @@ const List = styled.div`
 
 `
 
+const Buttons = styled.div`
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    bottom: 325px;
+    gap: 15px;
+
+    & img{
+        height: 25px;
+        width: 25px;
+
+    }& .newEntry, .newOut {
+        box-sizing: border-box;
+        padding: 10px 9px 10px 9px;
+        margin-top: 15px;
+        width: 155px;
+        height: 114px;
+        background: #A328D6;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+    } & .in, .out{
+        width: 64px;
+        height: 40px;
+    } & .in h1, .out h1{
+        font-family: 'Raleway';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 17px;
+        line-height: 20px;
+        color: #FFFFFF;
+    }
+
+`
+const PrimeiraTela = styled.div`
+    width: 326px;
+    height: 446px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    & > h1{
+        width: 180px;
+        height: 46px;
+        font-family: 'Raleway';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 23px;
+        color: #868686;
+    }
+`
+
 
 function Home() {
 
     const { token } = useContext(UserContext);
 
     const user = "Pedro";
-    const teste = ["oi"];
+    const teste = [];
 
     const navegar = useNavigate();
 
@@ -108,7 +164,9 @@ function Home() {
                 <div className="payScreen">
                     <div>
                         {teste.length === 0 ?
-                            <h1>Não há registros de entrada ou saída</h1> :
+                            <PrimeiraTela >
+                                <h1>Não há registros de entrada ou saída</h1>
+                            </PrimeiraTela> :
                             teste.map(() =>
                                 <List>
                                     <div className="entry">
@@ -136,6 +194,16 @@ function Home() {
                             )
                         }
                     </div>
+                    <Buttons>
+                        <div onClick={navegar("/entrada")} className="newEntry">
+                            <img src={Entry} alt="LogoEntry"/>
+                            <div className="in"><h1>Nova entrada</h1></div>
+                        </div>
+                        <div onClick={navegar("/saida")} className="newOut">
+                            <img src={Out} alt="LogoOut"/>
+                            <div className="out"><h1>Nova saída</h1></div>
+                        </div>
+                    </Buttons>
                 </div>
     
             </App>
