@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import Logout from "../../assets/images/logout.png"
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { UserContext } from "../../app";
 import Entry from "../../assets/images/entry.png"
 import Out from "../../assets/images/out.png"
 
@@ -140,9 +138,9 @@ const PrimeiraTela = styled.div`
 
 function Home() {
 
-    const { token } = useContext(UserContext);
 
-    const user = "Pedro";
+    const user = localStorage.getItem("user");
+    const userOBJ = JSON.parse(user);
     const teste = [];
 
     const navegar = useNavigate();
@@ -152,76 +150,75 @@ function Home() {
         navegar("/")
     }
 
-    function Entradas(e){
+    function Entradas(e) {
         e.preventDefault();
         navegar("/entrada")
     }
 
-    function Saidas(e){
+    function Saidas(e) {
         e.preventDefault();
         navegar("/saida")
     }
 
-    if(token !== null){
-        return (
+    return (
 
-            <App>
-                <div className="header">
-                    <h1>Olá, {user}</h1>
-                    <img onClick={Testes} className="logout" src={Logout} alt="LogoutIcon" />
+        <App>
+            <div className="header">
+                <h1>Olá, {userOBJ}</h1>
+                <img onClick={Testes} className="logout" src={Logout} alt="LogoutIcon" />
+            </div>
+            <div className="payScreen">
+                <div>
+                    {teste.length === 0 ?
+                        <PrimeiraTela >
+                            <h1>Não há registros de entrada ou saída</h1>
+                        </PrimeiraTela> :
+                        teste.map(() =>
+                            <List>
+                                <div className="entry">
+                                    <div className="dateName">
+                                        <h1>
+                                            23/10
+                                        </h1>
+                                        <h1>
+                                            Almoçar
+                                        </h1>
+                                    </div>
+                                    <h1 className="value">
+                                        23,30
+                                    </h1>
+                                </div>
+                                <div className="balance">
+                                    <h1>
+                                        SALDO
+                                    </h1>
+                                    <h1>
+                                        {21 + 23}
+                                    </h1>
+                                </div>
+                            </List>
+                        )
+                    }
                 </div>
-                <div className="payScreen">
-                    <div>
-                        {teste.length === 0 ?
-                            <PrimeiraTela >
-                                <h1>Não há registros de entrada ou saída</h1>
-                            </PrimeiraTela> :
-                            teste.map(() =>
-                                <List>
-                                    <div className="entry">
-                                        <div className="dateName">
-                                            <h1>
-                                                23/10
-                                            </h1>
-                                            <h1>
-                                                Almoçar
-                                            </h1>
-                                        </div>
-                                        <h1 className="value">
-                                            23,30
-                                        </h1>
-                                    </div>
-                                    <div className="balance">
-                                        <h1>
-                                            SALDO
-                                        </h1>
-                                        <h1>
-                                            {21 + 23}
-                                        </h1>
-                                    </div>
-                                </List>
-                            )
-                        }
+                <Buttons>
+                    <div onClick={Entradas} className="newEntry">
+                        <img src={Entry} alt="LogoEntry" />
+                        <div className="in"><h1>Nova entrada</h1></div>
                     </div>
-                    <Buttons>
-                        <div onClick={Entradas} className="newEntry">
-                            <img src={Entry} alt="LogoEntry"/>
-                            <div className="in"><h1>Nova entrada</h1></div>
-                        </div>
-                        <div onClick={Saidas} className="newOut">
-                            <img src={Out} alt="LogoOut"/>
-                            <div className="out"><h1>Nova saída</h1></div>
-                        </div>
-                    </Buttons>
-                </div>
-    
-            </App>
-    
-        )
-    }
+                    <div onClick={Saidas} className="newOut">
+                        <img src={Out} alt="LogoOut" />
+                        <div className="out"><h1>Nova saída</h1></div>
+                    </div>
+                </Buttons>
+            </div>
 
+        </App>
 
-
+    )
 }
+
+
+
+
 
 export default Home;

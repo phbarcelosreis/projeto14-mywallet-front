@@ -63,7 +63,6 @@ function Login() {
 
     const Api = "http://localhost:5000/users";
     const navegar = useNavigate();
-    const { setToken, token } = useContext(UserContext);
 
     function CheckLogIn() {
 
@@ -75,12 +74,14 @@ function Login() {
         const promessa = axios.post(Api, user)
         promessa.then(
             (props) => {
-                setToken(props.data._id);
+                console.log(props.data);
+                localStorage.setItem("user", JSON.stringify(props.data.name));
+                localStorage.setItem("email", JSON.stringify(props.data.email));
                 navegar("/home")
             }
 
         );
-        promessa.catch((err)=> err.props);
+        promessa.catch((err)=> err.data);
 
     }
 
